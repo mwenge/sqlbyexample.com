@@ -1,0 +1,32 @@
+body {
+  padding-right: 100px;
+  padding-left: 100px;
+  padding-top: 20px;
+  font-family: 'Georgia', sans-serif;
+  font-size: 18px;
+  margin: 0px;
+}
+.masthead {
+  font-size: 26px;
+}
+.comment-column {
+  font-size: 14px;
+  padding: 20px;
+  grid-column: 1;
+  border: 1px solid #888;
+}
+.code-column {
+  font-size: 14px;
+  padding: 20px;
+  grid-column: 2;
+  background-color: lightgray;
+}
+.example {
+  display: grid;
+}
+.example-description {
+  text-decoration: underline;
+  padding: 10px;
+  
+}
+.example-description:hover { cursor: pointer; }
