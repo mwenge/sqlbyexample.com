@@ -68,7 +68,7 @@ function indexForNewItemInHistory() {
 
 // Create a cell for entering commands
 var createCell = function () {
-	return function (container, sql) {
+	return function (container, sql, title) {
     let currentPosInHistory = -1;
 
     // Connect to the HTML element we 'print' to
@@ -210,11 +210,15 @@ var createCell = function () {
     lastCellID++;
     container.id = lastCellID;
 
+    // Add the title
+		var titleElm = document.createElement('span');
+    titleElm.className = "title";
+    titleElm.innerHTML = title
+    container.appendChild(titleElm);
+
     // Add the command pane
 		var commandsElm = document.createElement('textarea');
-    if (!container.previousSibling) {
-      sql = '-- Add a file to the database and then write a query here!\n\n';
-    } else if (!sql) {
+    if (!sql) {
       sql = '\n\n\n';
     }
     commandsElm.textContent = sql;
@@ -279,13 +283,12 @@ var createCell = function () {
 	}
 }();
 
-function addCell(sql) {
+function addCell(sql, title) {
   var c = document.createElement('div');
   var cellsContainer = document.getElementById("container");
   cellsContainer.appendChild(c);
-  createCell(c, sql);
+  createCell(c, sql, title);
 }
-addCell();
 
 // Create an HTML table
 var tableCreate = function () {
@@ -311,6 +314,39 @@ function tic() { tictime = performance.now() }
 function toc(msg) {
 	var dt = performance.now() - tictime;
 	console.log((msg || 'toc') + ": " + dt + "ms");
+}
+
+function loadDefaultDB() {
+	var f = "Chinook_Sqlite.db";
+
+	var request = new XMLHttpRequest();
+	request.open('GET', f, true);
+	request.responseType = 'blob';
+	request.onload = function() {
+		function error(e) {
+			console.log(e);
+			statusElm.textContent = e;
+		}
+
+		var r = new FileReader();
+		r.onload = function () {
+			worker.onmessage = function () {
+				statusElm.textContent = "Loaded " + f;
+				updateSidebar();
+			};
+			tic();
+			try {
+				worker.postMessage({ action: 'open', buffer: r.result }, [r.result]);
+			}
+			catch (exception) {
+				worker.postMessage({ action: 'open', buffer: r.result});
+			}
+		}
+		statusElm.textContent = "Loading " + f;
+		r.readAsArrayBuffer(request.response);
+	};
+	request.send();
+
 }
 
 // Load a file into our DB by guessing the separators it uses.
@@ -493,3 +529,6 @@ function updateSidebar() {
     "  ORDER BY 1; ";
 	execute(schemaSQL+ ';');
 }
+
+examples.forEach(x => addCell(x.sql, x.title));
+loadDefaultDB();
