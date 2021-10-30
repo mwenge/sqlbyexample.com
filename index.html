@@ -1,20 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
+<html>
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="main.css"/>
-<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-<script src="prettify.js"></script>
-<script src="lang-sql.js"></script>
-<script src="main.js"></script>
+  <meta charset="utf8">
+  <title>SQL By Example</title>
+  <link rel="stylesheet" href="3rdparty/codemirror/codemirror.css">
+  <link rel="stylesheet" href="3rdparty/codemirror/show-hint.css">
+  <link rel="stylesheet" href="3rdparty/codemirror/3024-day.css">
+  <link rel="stylesheet" href="3rdparty/codemirror/3024-night.css">
+  <link rel="stylesheet" href="demo.css">
+  <link rel="icon" type="image/x-icon" href="favicon.png" id="icon">
+  <script src="3rdparty/codemirror/codemirror.js"></script>
+  <script src="3rdparty/codemirror/sql-hint.js"></script>
+  <script src="3rdparty/codemirror/show-hint.js"></script>
+  <script type="text/javascript" src="3rdparty/xlsx.full.min.js"></script>
+  <script type="text/javascript" src="3rdparty/localforage.min.js"></script>
+  <script src="3rdparty/hotkeys.min.js"></script>
 </head>
+
 <body>
-<div class="masthead">
-  SQL By Example
-</div>
-<div class="container" id="Select All.sql">
-  <div class="example-description" onclick="getExample('Select All.sql')">
-    Select all rows in a table
+  <div class="banner">
+    <div class="logo">
+      <div>SQL</div>
+      <div>BY</div>
+      <div>EXAMPLE</div>
+    </div>
+    <div class="hints">
+      <table>
+        <tr>
+          <td><b>Ctrl-Enter:</b> Run query.<td>
+          <td><b>Ctrl-B:</b> Add cell below.<td>
+          <td><b>Ctrl-A:</b> Add cell above.<td>
+          <td><b>Ctrl-D:</b> Delete cell.<td>
+          <td><b>Tab:</b> Move to next cell.<td>
+        </tr>
+        <tr>
+          <td><b>Ctrl-Space:</b> Autocomplete.<td>
+          <td><b>Alt-Left:</b> Previous Query in History.<td>
+          <td><b>Alt-Right:</b> Next Query in History.<td>
+          <td><b>Shift-Tab:</b> Move to previous cell.<td>
+          <td><b>Ctrl-S:</b> Save results as CSV.<td>
+        </tr>
+      </table>
+    </div>
+    <input class="button" type='file' id='csvfile' style="display:none">
+    <div class="fileselect" style="float:right;" id="vsvbutton">
+      <input class="button" type='file' id='vsvfile' style="display:none">
+      <div class="logo" style="float:left;">
+        <input class="button" type="button" value="+">
+      </div>
+      <div class="logo" style="float:left;">
+        <div>CSV TXT</div>
+        <div>XLS ODT</div>
+        <div>DB</div>
+      </div>
+    </div>
   </div>
-</div>
+  <div class="sidebar" id="sidebar"></div>
+  <header class="status" id="status"></header>
+  <main>
+    <div id="container"></div>
+  </main>
+
+  <script src="3rdparty/codemirror/sql.min.js"></script>
+
+  <footer>
+    by <a href='https://github.com/mwenge/sqlbyexample.com'>mwenge</a> and
+    based on <a href='https://github.com/sql-js/sql.js'>sql.js</a>.
+  </footer>
+
+  <script type="text/javascript" src="separators.js"></script>
+  <script type="text/javascript" src="gui.js"></script>
 </body>
+
+</html>
