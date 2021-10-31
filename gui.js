@@ -68,7 +68,7 @@ function indexForNewItemInHistory() {
 
 // Create a cell for entering commands
 var createCell = function () {
-	return function (container, sql, title) {
+	return function (container, sql, title = "") {
     let currentPosInHistory = -1;
 
     // Connect to the HTML element we 'print' to
