@@ -29,4 +29,17 @@ ORDER BY totalsales DESC
 Aggregate using Sum
 `,
   },
+
+  {
+    sql: `
+SELECT i.billingcountry, max(total) as 'Largest Sale'
+FROM invoice AS i
+GROUP BY billingcountry
+ORDER BY totalsales DESC
+`,
+    title: `
+Get Max
+`,
+  },
+
 ]
