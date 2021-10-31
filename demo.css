@@ -74,7 +74,9 @@ body{
   font-size: 0.5vw;
 }
 .title {
-  font-size: 0.8vw;
+  font-family: 'ABCFavoritMono';
+  font-size: 0.7vw;
+  font-weight: bold;
 }
 
 h1 {
