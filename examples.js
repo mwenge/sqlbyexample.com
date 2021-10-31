@@ -35,7 +35,7 @@ Aggregate using Sum
 SELECT i.billingcountry, max(total) as 'Largest Sale'
 FROM invoice AS i
 GROUP BY billingcountry
-ORDER BY totalsales DESC
+ORDER BY 'Largest Sale' DESC
 `,
     title: `
 Get Max
