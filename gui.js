@@ -2,6 +2,7 @@ var csvFileElm = document.getElementById('csvfile');
 var vsvFileElm = document.getElementById('vsvfile');
 var vsvButton = document.getElementById('vsvbutton');
 var sidebar = document.getElementById('sidebar');
+var menubar = document.getElementById('menubar');
 var statusElm = document.getElementById('status');
 
 
@@ -68,7 +69,7 @@ function indexForNewItemInHistory() {
 
 // Create a cell for entering commands
 var createCell = function () {
-	return function (container, sql, title = "") {
+	return function (container, sql, title = "", link = "") {
     let currentPosInHistory = -1;
 
     // Connect to the HTML element we 'print' to
@@ -210,6 +211,11 @@ var createCell = function () {
     lastCellID++;
     container.id = lastCellID;
 
+		var anchor = document.createElement('a');
+    anchor.className = "anchor";
+    anchor.id = link;
+    container.appendChild(anchor);
+
     // Add the title
 		var titleElm = document.createElement('span');
     titleElm.className = "title";
@@ -240,7 +246,6 @@ var createCell = function () {
       smartIndent: true,
       lineNumbers: true,
       matchBrackets: true,
-      autofocus: true,
       theme: selectedTheme,
       extraKeys: {
         "Ctrl-Enter": execEditorContents,
@@ -283,11 +288,11 @@ var createCell = function () {
 	}
 }();
 
-function addCell(sql, title) {
+function addCell(sql, title, link) {
   var c = document.createElement('div');
   var cellsContainer = document.getElementById("container");
   cellsContainer.appendChild(c);
-  createCell(c, sql, title);
+  createCell(c, sql, title, link);
 }
 
 // Create an HTML table
@@ -530,5 +535,13 @@ function updateSidebar() {
 	execute(schemaSQL+ ';');
 }
 
-examples.forEach(x => addCell(x.sql, x.title));
+function addMenuItem(title, link) {
+  let x = "<a class=\"menuitem\" href=\"#" + link + "\">" + title + "</a><br>";
+  menubar.innerHTML += x;
+}
+examples.forEach(x => {
+  let l = x.title.replace(/[ \n]/g, '');
+  addMenuItem(x.title, l);
+  addCell(x.sql, x.title, l);
+});
 loadDefaultDB();
