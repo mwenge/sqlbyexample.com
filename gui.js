@@ -316,7 +316,7 @@ function updateSidebar() {
 }
 
 function addMenuItem(title, link) {
-  let x = "<a class=\"menuitem\" href=\"#" + link + "\">" + title + "</a><br>";
+  let x = "<a class=\"menuitem\" href=\"#" + link + "\">" + title + "</a>";
   menubar.innerHTML += x;
 }
 examples.forEach(x => {

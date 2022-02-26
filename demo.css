@@ -56,8 +56,12 @@ html {
   width: 15%;
 }
 .menuitem {
+  margin-top: 5px;
+  display: block;
   text-decoration: none;
   color: white;
+  padding-left: 22px ;
+  text-indent: -22px ;
 }
 .menuitem:hover {
   color: red;
