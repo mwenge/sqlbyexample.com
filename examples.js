@@ -42,4 +42,40 @@ Get Max
 `,
   },
 
+  {
+    sql: `
+SELECT Name, Title
+FROM Artist AS A
+JOIN Album as I
+   ON A.ArtistID = I.ArtistID
+`,
+    title: `
+Join Two Tables - Where the Same ID is Present in Both
+`,
+  },
+
+  {
+    sql: `
+SELECT Name, Title
+FROM Artist AS A
+LEFT JOIN Album as I
+   ON A.ArtistID = I.ArtistID
+`,
+    title: `
+Join Two Tables - Taking All Entries from First Table and Any Matching Entries from Second Table
+`,
+  },
+  {
+    sql: `
+SELECT DISTINCT Name
+FROM Artist AS A
+LEFT JOIN Album as I
+   ON A.ArtistID = I.ArtistID
+WHERE
+I.ArtistID IS NULL
+`,
+    title: `
+Find ID in One Table But Not the Other
+`,
+  },
 ]
