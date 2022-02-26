@@ -201,6 +201,9 @@ footer {
   border-collapse: collapse;
 }
 
+.editorContainer:focus {
+  outline: 0.5px solid lightblue;
+}
 .CodeMirror-focused {
   border: 0.5px solid lightblue;
 }
