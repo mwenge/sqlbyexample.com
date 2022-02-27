@@ -97,4 +97,18 @@ I2.CustomerID IS NULL
 Get the Entry with the Most Recent Date for an Entity
 `,
   },
+  {
+    sql: `
+-- Order by Customer ID and Invoice Date and pull in the invoice date from the
+-- previous row.
+SELECT CustomerID
+    , InvoiceDate
+  , MIN(InvoiceDate) OVER (PARTITION BY CustomerID ORDER BY CustomerID,  InvoiceDate
+                ROWS BETWEEN 1 PRECEDING and 1 PRECEDING) as PreviousInvoiceDate
+FROM Invoice
+ORDER BY CustomerID,  InvoiceDate`,
+    title: `
+Pull in a Value from the Previous Row of the Results
+`,
+  },
 ]
