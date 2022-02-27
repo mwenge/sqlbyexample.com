@@ -111,4 +111,28 @@ ORDER BY CustomerID,  InvoiceDate`,
 Pull in a Value from the Previous Row of the Results
 `,
   },
+  {
+    sql: `
+-- In the subquery we order by Customer ID and Invoice Date and pull in the invoice date from the
+-- previous row. Then we count the instances for each DaysBetweenInvoice.
+SELECT 
+    (InvoiceDate - PreviousInvoiceDate) DaysBetweenInvoice
+  , COUNT(*) Invoices
+FROM
+(
+    SELECT CustomerID
+        , InvoiceDate
+        , MIN(InvoiceDate) OVER (PARTITION BY CustomerID ORDER BY CustomerID,  InvoiceDate
+                    ROWS BETWEEN 1 PRECEDING and 1 PRECEDING) as PreviousInvoiceDate
+    FROM Invoice
+    ORDER BY CustomerID,  InvoiceDate
+) A
+WHERE
+PreviousInvoiceDate IS NOT NULL
+GROUP BY 1
+`,
+title: `
+Get the Number of Days Between Two Dates
+`,
+  },
 ]
