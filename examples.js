@@ -78,4 +78,23 @@ I.ArtistID IS NULL
 Find ID in One Table But Not the Other
 `,
   },
+  {
+    sql: `
+-- Join a table to itself and select the latest date per CustomerID.
+SELECT I1.*  
+FROM Invoice I1
+LEFT JOIN Invoice I2
+    ON 
+    (
+	 I1.CustomerID = I2.CustomerID
+	 AND
+	 I1.InvoiceDate < I2.InvoiceDate
+	)
+WHERE
+I2.CustomerID IS NULL
+`,
+    title: `
+Get the Entry with the Most Recent Date for an Entity
+`,
+  },
 ]
