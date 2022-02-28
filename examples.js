@@ -32,6 +32,21 @@ Aggregate using Sum
 
   {
     sql: `
+-- Filter an aggregate results using the 'HAVING' clause.
+SELECT BillingCountry, sum(Total) as TotalSales
+FROM Invoice AS i
+GROUP BY BillingCountry
+HAVING TotalSales > 100
+ORDER BY totalsales DESC
+
+`,
+    title: `
+Filter an Aggregate Value
+`,
+  },
+
+  {
+    sql: `
 SELECT i.billingcountry, max(total) as 'Largest Sale'
 FROM invoice AS i
 GROUP BY billingcountry
